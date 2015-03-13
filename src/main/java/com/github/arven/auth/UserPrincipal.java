@@ -13,7 +13,7 @@ import java.security.Principal;
  */
 public class UserPrincipal implements Principal {
     
-    private String name;
+    private final String name;
     
     public UserPrincipal(String name) {
         this.name = name;
@@ -23,5 +23,5 @@ public class UserPrincipal implements Principal {
     public String getName() {
         return this.name;
     }
-    
+
 }
