@@ -5,10 +5,7 @@
  */
 package com.github.arven.rs.auth;
 
-import com.github.arven.auth.HashedUserInfo;
-
 import java.io.IOException;
-import java.util.Arrays;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -36,7 +33,7 @@ public class AuthenticationFilter implements Filter {
             HttpServletRequest req = (HttpServletRequest) request;
             if(req.getHeader("Authorization") != null) {
                 String s[] = new String(Base64.decodeBase64((req.getHeader("Authorization").split(" ")[1]))).split(":");
-                req.login(s[0], new HashedUserInfo("SHA-256", s[0], s[1], Arrays.asList(new String[] {"user"})).getPasswordHash());
+                req.login(s[0], s[1]);
             } else {
                 req.login("anonymous", "anonymous");
             }

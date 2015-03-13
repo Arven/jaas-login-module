@@ -98,7 +98,6 @@ public class ExampleLoginModule implements LoginModule {
             InitialContext context = new InitialContext();
             BeanManager bm = (BeanManager)context.lookup("java:comp/BeanManager");
             Bean<UserService> bean = (Bean<UserService>) bm.getBeans(UserService.class).iterator().next();
-            System.out.println(aOptions.get("USER_SERVICE"));
             if(aOptions.containsKey("USER_SERVICE")) {
                 for(Bean b : bm.getBeans(UserService.class)) {
                     if(b.getBeanClass().getCanonicalName().equals(aOptions.get("USER_SERVICE"))) {
@@ -132,7 +131,6 @@ public class ExampleLoginModule implements LoginModule {
             String name = ((NameCallback) callbacks[0]).getName();
             String password = String.valueOf(((PasswordCallback) callbacks[1]).getPassword());
  
-            System.out.println(svc);
             if (!name.equals("anonymous") && !svc.loadUserByUsername(name).checkPassword(password)) {
                 throw new LoginException("Authentication failed");
             }
