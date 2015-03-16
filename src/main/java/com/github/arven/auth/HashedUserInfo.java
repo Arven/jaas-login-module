@@ -5,13 +5,13 @@
  */
 package com.github.arven.auth;
 
+import com.google.common.io.BaseEncoding;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.codec.binary.Base64;
 
 /**
  *
@@ -40,7 +40,7 @@ public class HashedUserInfo implements UserInfo {
     public boolean checkPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance(messageDigest);
-            return Base64.encodeBase64String(md.digest(password.getBytes("UTF-8"))).equals(this.hash);
+            return BaseEncoding.base64().encode(md.digest(password.getBytes("UTF-8"))).equals(this.hash);
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             Logger.getLogger(HashedUserInfo.class.getName()).log(Level.SEVERE, null, ex);
         }

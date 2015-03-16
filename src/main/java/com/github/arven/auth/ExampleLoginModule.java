@@ -71,7 +71,7 @@ public class ExampleLoginModule implements LoginModule {
             } else {
                 subject.getPrincipals().add(new RolePrincipal("anonymous"));
             }
- 
+
             return true;
  
         } catch (Exception e) {

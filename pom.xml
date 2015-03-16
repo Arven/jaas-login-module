@@ -4,7 +4,7 @@
 
     <groupId>com.github.arven</groupId>
     <artifactId>jaas</artifactId>
-    <version>1.0.0a-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     <name>jaas login example module</name>
     <description>Example jaas login module</description>
@@ -26,11 +26,11 @@
         
         <!-- Google Guava -->
         <dependency>
-             <groupId>commons-codec</groupId>
-             <artifactId>commons-codec</artifactId>
-             <version>1.9</version>
-             <scope>provided</scope>
-        </dependency>        
+             <groupId>com.google.guava</groupId>
+             <artifactId>guava</artifactId>
+             <version>18.0</version>
+             <scope>compile</scope>
+        </dependency>         
         
         <!-- Java EE 6 API -->
         <dependency>

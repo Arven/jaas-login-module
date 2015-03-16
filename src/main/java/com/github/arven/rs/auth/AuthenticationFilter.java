@@ -5,6 +5,7 @@
  */
 package com.github.arven.rs.auth;
 
+import com.google.common.io.BaseEncoding;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,7 +15,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.codec.binary.Base64;
 
 /**
  *
@@ -31,12 +31,13 @@ public class AuthenticationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (request instanceof HttpServletRequest) {
             HttpServletRequest req = (HttpServletRequest) request;
+            String username = "anonymous", password = "anonymous";
             if(req.getHeader("Authorization") != null) {
-                String s[] = new String(Base64.decodeBase64((req.getHeader("Authorization").split(" ")[1]))).split(":");
-                req.login(s[0], s[1]);
-            } else {
-                req.login("anonymous", "anonymous");
+                String s[] = (new String(BaseEncoding.base64().decode(req.getHeader("Authorization").split(" ")[1]))).split(":");
+                username = s[0]; password = s[1];
             }
+            req.logout();
+            req.login(username, password);
             chain.doFilter(request, response);
         }
     }
